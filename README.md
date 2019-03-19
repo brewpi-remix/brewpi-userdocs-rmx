@@ -1,4 +1,8 @@
-brewpi-userdocs
+BrewPi-UserDocs-Remix
+===============
+
+Nothing in this repository is likely very correct.  It has been forked so that I can persist the historical information as I develop new documentation for the remix project. - LCB
+
 ===============
 
 This repository contains the BrewPi user documentation in reStructuredText format.
