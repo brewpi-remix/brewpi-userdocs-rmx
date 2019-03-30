@@ -19,14 +19,14 @@
 
 # -- Project information -----------------------------------------------------
 
-project = u'BrewPi Documentation'
-copyright = u'2019, Elco Jacobs'
+project = u'BrewPi Docs'
+copyright = u'2013, Elco Jacobs'
 author = u'Elco Jacobs'
 
-# The short X.Y version
-version = u''
-# The full version, including alpha/beta/rc tags
-release = u'2013'
+# The short X.Y version.
+version = '0.3'
+# The full version, including alpha/beta/rc tags.
+release = '0.3.0'
 
 
 # -- General configuration ---------------------------------------------------

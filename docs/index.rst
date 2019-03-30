@@ -1,5 +1,5 @@
 .. BrewPi Documentation documentation master file, created by
-   sphinx-quickstart on Sat Mar 30 10:03:24 2019.
+   sphinx-quickstart on Sun Jun 23 20:28:44 2013.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -14,7 +14,6 @@ The steps below will help you to go from a blank SD card and an unprogrammed Ard
 .. toctree::
    :maxdepth: 2
    :numbered: 2
-   :caption: Contents:
 
     installing-your-pi/rpi-setup
     automated-brewpi-install/automated-brewpi-install.rst
