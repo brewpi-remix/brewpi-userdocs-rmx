@@ -1,0 +1,200 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>3.1. Setting up your LAMP web server for BrewPi &#8212; BrewPi Docs 0.3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.2. Installing python requirements" href="python-setup.html" />
+    <link rel="prev" title="3. Manual installation of BrewPi" href="manual-brewpi-install.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="setting-up-your-lamp-web-server-for-brewpi">
+<h1>3.1. Setting up your LAMP web server for BrewPi<a class="headerlink" href="#setting-up-your-lamp-web-server-for-brewpi" title="Permalink to this headline">¶</a></h1>
+<p>LAMP stands for Linux, Apache, MySQL, PHP: the applications that make up your web server.
+This article explains how to install all of them on your pi.</p>
+<div class="section" id="install-apache2">
+<h2>Install Apache2<a class="headerlink" href="#install-apache2" title="Permalink to this headline">¶</a></h2>
+<p>To install Apache2, execute the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get update
+sudo apt-get install apache2
+sudo apt-get install libapache2-mod-php5 php5-cli php5-common php5-cgi
+</pre></div>
+</div>
+<p>To test your server, you can now visit <a class="reference external" href="http://your-rpi-ip/">http://your-rpi-ip/</a>.
+By default, the root of your web server is <code class="docutils literal notranslate"><span class="pre">/var/www/</span></code></p>
+</div>
+<div class="section" id="install-php">
+<h2>Install PHP<a class="headerlink" href="#install-php" title="Permalink to this headline">¶</a></h2>
+<p>To install PHP, execute the following commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install php5
+</pre></div>
+</div>
+<p>Once you have installed PHP, you can test it by creating a new php file in your <code class="docutils literal notranslate"><span class="pre">/var/www/</span></code> directory.
+Open the text editor nano to create the file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo nano /var/www/phpinfo.php
+</pre></div>
+</div>
+<p>This is what you want to put inside your file:</p>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+<span class="nb">phpinfo</span><span class="p">();</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+</pre></div>
+</div>
+<p>To exit nano and save your file, you can use <code class="docutils literal notranslate"><span class="pre">ctr-x</span></code>, to write the file but keep nano open, you can use <code class="docutils literal notranslate"><span class="pre">ctrl-o</span></code>.</p>
+<p>For security reasons, your web server runs as a separate user under Linux, the <code class="docutils literal notranslate"><span class="pre">www-data</span></code> user.
+Your files in your /var/www/ directory should be owned by this user, otherwise your web server will not have the permissions to access the files. You can change owner of everything in your <code class="docutils literal notranslate"><span class="pre">/var/www/</span></code> directory to the <code class="docutils literal notranslate"><span class="pre">www-data</span></code> group and user with the following command. The <code class="docutils literal notranslate"><span class="pre">-R</span></code> flag recursively chowns all files and subdirectories.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo chown -R www-data:www-data /var/www
+</pre></div>
+</div>
+<p>You can test your PHP installation by viewing the result of your new file in a browser: <a class="reference external" href="http://your-rpi-ip/phpinfo.php">http://your-rpi-ip/phpinfo.php</a>. If that worked, please delete the file:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo rm /var/www/phpinfo.php
+</pre></div>
+</div>
+<p>If you ever need to restart your web server, you can use this command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo /etc/init.d/apache2 restart
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-mysql">
+<h2>Install MySQL<a class="headerlink" href="#install-mysql" title="Permalink to this headline">¶</a></h2>
+<p>The current version of BrewPi doesn’t use MySQL. It is recommended to not install it. If you want MySQL anyway, you can install it with these commands:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install mysql-server mysql-client php5-mysql
+</pre></div>
+</div>
+<p>To manage your databases from a web interface, you can install PHPMyAdmin:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install libapache2-mod-auth-mysql php5-mysql phpmyadmin
+</pre></div>
+</div>
+<p>Remember to select Apache2 with the space bar when it comes up! After installation, reboot and test: <a class="reference external" href="http://your-rpi-ip/phpmyadmin">http://your-rpi-ip/phpmyadmin</a>. Reboot with the command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo shutdown -r now
+</pre></div>
+</div>
+<p>To easily see when your pi is back online, create a shortcut in your quick launch bar with the following target (for the correct IP address of course):</p>
+<div class="highlight-bat notranslate"><div class="highlight"><pre><span></span>C<span class="p">:</span><span class="nl">\Windows\System32\cmd.exe</span><span class="c1"> /c &quot;ping -t 192.168.0.6&quot;</span>
+</pre></div>
+</div>
+<p>That will open a command window that keeps pinging your Raspberry Pi.</p>
+<p>If you mess up the installation of MySQL, because you didn’t listen and did not expand your root partition, it can be a bitch to remove and re-install. The following worked for me eventually:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get autoremove --purge mysql-server mysql-server-5.5 mysql-common
+sudo rm /var/lib/mysql/ -rf
+sudo rm /etc/mysql -rf
+sudo apt-get install -f mysql-server
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BrewPi Docs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing-your-pi/rpi-setup.html">1. Basic configuration of your Raspberry Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automated-brewpi-install/automated-brewpi-install.html">2. Automated installation of BrewPi</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="manual-brewpi-install.html">3. Manual installation of BrewPi</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.1. Setting up your LAMP web server for BrewPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-setup.html">3.2. Installing python requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-users-permissions.html">3.3. Setting up users and permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using-git-for-brewpi.html">3.4. Using Git for BrewPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config-files.html">3.5. Modifying BrewPi config files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setting-up-cron.html">3.6. Setting up a CRON job to start the script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../after-install/program-arduino.html">4. Programming your Arduino with BrewPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../after-install/device-configuration.html">5. Configuring your devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../updating-brewpi/update-script.html">6. Updating BrewPi with our upgrade script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/faq-index.html">7. Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog/changelog.html">8. Changelog</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="manual-brewpi-install.html">3. Manual installation of BrewPi</a><ul>
+      <li>Previous: <a href="manual-brewpi-install.html" title="previous chapter">3. Manual installation of BrewPi</a></li>
+      <li>Next: <a href="python-setup.html" title="next chapter">3.2. Installing python requirements</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2013, Elco Jacobs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/manual-brewpi-install/webserver-setup.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

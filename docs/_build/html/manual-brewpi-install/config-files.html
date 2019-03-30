@@ -1,0 +1,164 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>3.5. Modifying BrewPi config files &#8212; BrewPi Docs 0.3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3.6. Setting up a CRON job to start the script" href="setting-up-cron.html" />
+    <link rel="prev" title="3.4. Using Git for BrewPi" href="using-git-for-brewpi.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="modifying-brewpi-config-files">
+<h1>3.5. Modifying BrewPi config files<a class="headerlink" href="#modifying-brewpi-config-files" title="Permalink to this headline">¶</a></h1>
+<p>The defaults should work in most cases, if you run BrewPi on a Raspberry Pi and are happy with the default setup.
+The config files for BrewPi are split in two: default configuration and user configuration.
+The user config files overrule the default configuration. They are created on first use, or can be added manually.</p>
+<p>The default config is version controlled with git, the user config files are ignored.</p>
+<div class="section" id="editing-the-script-config-file">
+<h2>Editing the script config file<a class="headerlink" href="#editing-the-script-config-file" title="Permalink to this headline">¶</a></h2>
+<p>In the script’s settings directory, the user config file is called <a class="reference external" href="https://github.com/BrewPi/brewpi-script/blob/master/settings/config.cfg">config.cfg</a>.
+By default, all settings are commented in this file. BrewPi first loads <a class="reference external" href="https://github.com/BrewPi/brewpi-script/blob/master/settings/defaults.cfg">defaults.cfg</a>,
+and overwrites the default settings with the user settings in <cite>config.cfg</cite>. Generally, the defaults will work.
+If you change settings in the web interface, for example the beer name or interval, these settings will be written to <code class="docutils literal notranslate"><span class="pre">config.cfg</span></code>.</p>
+<p>If your Arduino is using a different serial port than /dev/ttyACM0, you will have add the setting to config.cfg.
+The altport setting is used when the normal port cannot be found.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>port = /dev/ttyACM0
+altport = /dev/ttyACM1
+</pre></div>
+</div>
+<p>If you are not running BrewPi on a Raspberry Pi, but for instance on Windows, you will want to change a few of these parameters.
+For my setup on Windows I use WAMP as a web server and run the python scripts in IntelliJ IDEA (ask me for a license key).</p>
+<p>My config.cfg file for Windows has these settings:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>scriptPath = c:\Users\Elco\Dropbox\BrewPi\git\brewpi-script\
+wwwPath = c:\wamp\www\brewpi\
+port = COM7
+arduinoHome = c:\arduino-1.0.4\
+avrdudeHome = C:\arduino-1.0.4\hardware\tools\avr\bin\
+avrsizeHome = C:\arduino-1.0.4\hardware\tools\avr\bin\
+avrConf = C:\arduino-1.0.4\hardware\tools\avr\etc\avrdude.conf
+</pre></div>
+</div>
+</div>
+<div class="section" id="editing-the-web-interface-config-file">
+<h2>Editing the web interface config file<a class="headerlink" href="#editing-the-web-interface-config-file" title="Permalink to this headline">¶</a></h2>
+<p>In web interface, the settings in <a class="reference external" href="https://github.com/BrewPi/brewpi-script/blob/master/settings/config.cfg">config.cfg</a>
+are overruled by config_user.php, if it exists. The only setting for the web interface is the location of the scripts directory.
+An <a class="reference external" href="https://github.com/BrewPi/brewpi-www/blob/master/config_user.php.example">example file for config_user.php</a> is included in the repository.
+Copy this example file to config_user.php and make edits to the copy.</p>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BrewPi Docs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing-your-pi/rpi-setup.html">1. Basic configuration of your Raspberry Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automated-brewpi-install/automated-brewpi-install.html">2. Automated installation of BrewPi</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="manual-brewpi-install.html">3. Manual installation of BrewPi</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="webserver-setup.html">3.1. Setting up your LAMP web server for BrewPi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="python-setup.html">3.2. Installing python requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-users-permissions.html">3.3. Setting up users and permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using-git-for-brewpi.html">3.4. Using Git for BrewPi</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">3.5. Modifying BrewPi config files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setting-up-cron.html">3.6. Setting up a CRON job to start the script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../after-install/program-arduino.html">4. Programming your Arduino with BrewPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../after-install/device-configuration.html">5. Configuring your devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../updating-brewpi/update-script.html">6. Updating BrewPi with our upgrade script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq/faq-index.html">7. Frequently Asked Questions (FAQ)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog/changelog.html">8. Changelog</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="manual-brewpi-install.html">3. Manual installation of BrewPi</a><ul>
+      <li>Previous: <a href="using-git-for-brewpi.html" title="previous chapter">3.4. Using Git for BrewPi</a></li>
+      <li>Next: <a href="setting-up-cron.html" title="next chapter">3.6. Setting up a CRON job to start the script</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2013, Elco Jacobs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/manual-brewpi-install/config-files.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
