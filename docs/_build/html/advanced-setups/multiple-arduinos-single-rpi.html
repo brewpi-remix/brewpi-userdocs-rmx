@@ -1,0 +1,429 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>7.1. Running Multiple Arduinos on the Same RaspberryPi &#8212; BrewPi Docs 0.3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="8. Changelog" href="../changelog/changelog.html" />
+    <link rel="prev" title="7. Frequently Asked Questions (FAQ)" href="../faq/faq-index.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="running-multiple-arduinos-on-the-same-raspberrypi">
+<h1>7.1. Running Multiple Arduinos on the Same RaspberryPi<a class="headerlink" href="#running-multiple-arduinos-on-the-same-raspberrypi" title="Permalink to this headline">¶</a></h1>
+<p>In some cases it may be desired to run multiple Arduinos on the same RaspberryPi (RPi).  A common reason for doing this is to support multiple chambers (one Arduino per chamber) with a single RPi.</p>
+<p>This guide explains how to configure your RPi to run two instances of BrewPi to support two Arduinos controlling two chambers (top and bottom).  The use of the <a class="reference internal" href="../manual-brewpi-install/manual-brewpi-install.html"><span class="doc">manual installation process</span></a> is necessary.  The concepts in this guide can also be used to add more than Arduinos, although there will be some limit as to the number of script instances that the RPi can handle.</p>
+<div class="section" id="setup-udev-rules-for-the-arduinos">
+<h2>Setup udev rules for the Arduinos<a class="headerlink" href="#setup-udev-rules-for-the-arduinos" title="Permalink to this headline">¶</a></h2>
+<p>By using udev, you can create static device node symlinks based on the port of the USB hub that each Arduino is plugged into. <a class="footnote-reference" href="#id3" id="id1">[1]</a>  This allows you to be confident that each script instance is always controlling the correct Arduino.</p>
+<div class="section" id="determine-the-usb-hub-port-identifiers">
+<h3>Determine the USB hub port identifiers<a class="headerlink" href="#determine-the-usb-hub-port-identifiers" title="Permalink to this headline">¶</a></h3>
+<p>With only one Arduino connected, issue the following command to see which device node the Arduino is currently using:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls /dev/ttyACM*
+</pre></div>
+</div>
+<p>Then issue the following command, using the device node name found in the previous step:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>udevadm info -a -n /dev/arduino_bottom <span class="p">|</span> less
+</pre></div>
+</div>
+<p>You will get a bunch of output.  The relevant <code class="docutils literal notranslate"><span class="pre">looking</span> <span class="pre">at</span> <span class="pre">parent</span> <span class="pre">device</span></code> section will be the one that contains a line that states <code class="docutils literal notranslate"><span class="pre">ATTRS{product}==&quot;Arduino</span> <span class="pre">Leonardo&quot;</span></code> (your Arduino model may differ).  Here is the output from the section to look at from one of my Arduinos:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>looking at parent device &#39;/devices/platform/bcm2708_usb/usb1/1-1/1-1.3/1-1.3.3/1-1.3.3.3&#39;:
+  KERNELS==&quot;1-1.3.3.3&quot;
+  SUBSYSTEMS==&quot;usb&quot;
+  DRIVERS==&quot;usb&quot;
+  ATTRS{bDeviceSubClass}==&quot;00&quot;
+  ATTRS{bDeviceProtocol}==&quot;00&quot;
+  ATTRS{devpath}==&quot;1.3.3.3&quot;
+  ATTRS{idVendor}==&quot;2341&quot;
+  ATTRS{speed}==&quot;12&quot;
+  ATTRS{bNumInterfaces}==&quot; 3&quot;
+  ATTRS{bConfigurationValue}==&quot;1&quot;
+  ATTRS{bMaxPacketSize0}==&quot;64&quot;
+  ATTRS{busnum}==&quot;1&quot;
+  ATTRS{devnum}==&quot;9&quot;
+  ATTRS{configuration}==&quot;&quot;
+  ATTRS{bMaxPower}==&quot;500mA&quot;
+  ATTRS{authorized}==&quot;1&quot;
+  ATTRS{bmAttributes}==&quot;80&quot;
+  ATTRS{bNumConfigurations}==&quot;1&quot;
+  ATTRS{maxchild}==&quot;0&quot;
+  ATTRS{bcdDevice}==&quot;0100&quot;
+  ATTRS{avoid_reset_quirk}==&quot;0&quot;
+  ATTRS{quirks}==&quot;0x0&quot;
+  ATTRS{version}==&quot; 2.00&quot;
+  ATTRS{urbnum}==&quot;19&quot;
+  ATTRS{ltm_capable}==&quot;no&quot;
+  ATTRS{manufacturer}==&quot;Arduino LLC&quot;
+  ATTRS{removable}==&quot;unknown&quot;
+  ATTRS{idProduct}==&quot;8036&quot;
+  ATTRS{bDeviceClass}==&quot;00&quot;
+  ATTRS{product}==&quot;Arduino Leonardo&quot;
+</pre></div>
+</div>
+<p>The important line in the output above is the <code class="docutils literal notranslate"><span class="pre">KERNELS</span></code> line.  Write that line down and save it for later.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>KERNELS==&quot;1-1.3.3.3&quot;
+</pre></div>
+</div>
+<p>Next, move the Arduino to the next port on the USB hub that you will use for another Arduino, and repeat the steps previously listed in this section.  Repeat the process for as many Arduinos as you will be using.</p>
+</div>
+<div class="section" id="write-the-udev-rules">
+<h3>Write the udev rules<a class="headerlink" href="#write-the-udev-rules" title="Permalink to this headline">¶</a></h3>
+<p>Now that the identifier for each USB hub port has been obtained, the udev rules can be written.  In my case, I have the following identifiers:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>KERNELS==&quot;1-1.3.3.3&quot;
+KERNELS==&quot;1-1.3.3.4&quot;
+</pre></div>
+</div>
+<p>Create the file <code class="docutils literal notranslate"><span class="pre">/etc/udev/rules.d/99-arduino.rules</span></code> with contents similar to the following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>SUBSYSTEM==&quot;tty&quot;, KERNEL==&quot;ttyACM*&quot;, KERNELS==&quot;1-1.3.3.3&quot;, SYMLINK+=&quot;arduino_bottom&quot;
+SUBSYSTEM==&quot;tty&quot;, KERNEL==&quot;ttyACM*&quot;, KERNELS==&quot;1-1.3.3.4&quot;, SYMLINK+=&quot;arduino_top&quot;
+</pre></div>
+</div>
+<p>The parameters to change on each line are listed in the table below.  The other two parameters that aren’t listed are there to help prevent symlinks from being created if a device other than an Arduino is plugged into one of the ports in question on the USB hub.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>KERNELS==”1-1.3.3.3”</td>
+<td><div class="first last line-block">
+<div class="line">Set to the identifier from the previous section that corresponds to the port you’re working with.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>SYMLINK+=”arduino_bottom”</td>
+<td><div class="first last line-block">
+<div class="line">Set to the name of the symlink you wish to create in <code class="docutils literal notranslate"><span class="pre">/dev/</span></code>.</div>
+<div class="line">Do not include the leading <code class="docutils literal notranslate"><span class="pre">/dev/</span></code>.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p>In the example above, I end up with the symlinks <code class="docutils literal notranslate"><span class="pre">/dev/arduino_bottom</span></code> and <code class="docutils literal notranslate"><span class="pre">/dev/arduino_top</span></code> when both Arduinos are connected to their respective ports.  The symlink names reflect which chamber each Arduino controls.</p>
+<p>Once the udev rules file is created, disconnect your Arduino and then reload udev before connecting all of the Ardiunos to their respective ports.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo /etc/init.d/udev reload
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="install-brewpi">
+<h2>Install BrewPi<a class="headerlink" href="#install-brewpi" title="Permalink to this headline">¶</a></h2>
+<p>Install the BrewPi script and web interface manually as described in the <a class="reference internal" href="../manual-brewpi-install/manual-brewpi-install.html"><span class="doc">manual installation process</span></a>, noting the following changes:</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code> brewpi-script into subdirectories of <code class="docutils literal notranslate"><span class="pre">/home/brewpi</span></code> instead of directly into <code class="docutils literal notranslate"><span class="pre">/home/brewpi</span></code>.  I used <code class="docutils literal notranslate"><span class="pre">/home/brewpi/top</span></code> and <code class="docutils literal notranslate"><span class="pre">/home/brewpi/bottom</span></code> to match the chamber each Arduino controls.</li>
+<li><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span></code> brewpi-www into subdirectories of <code class="docutils literal notranslate"><span class="pre">/var/www</span></code> instead of directly into <code class="docutils literal notranslate"><span class="pre">/var/www</span></code>.  I used <code class="docutils literal notranslate"><span class="pre">/var/www/top</span></code> and <code class="docutils literal notranslate"><span class="pre">/var/www/bottom</span></code> to match each script installation directory.</li>
+<li>Fix the permissions manually.<ul>
+<li><strong>UNTESTED</strong> alternative<ul>
+<li>It looks like <code class="docutils literal notranslate"><span class="pre">utils/fixPermissions.sh</span></code> should work when run from each script instance.</li>
+<li>If you have other content in <code class="docutils literal notranslate"><span class="pre">/var/www</span></code>, you will likely want to update <code class="docutils literal notranslate"><span class="pre">webPath</span></code> in <code class="docutils literal notranslate"><span class="pre">fixPermissions.sh</span></code> to the directory of the corresponding web interface instance.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Do  <strong>not</strong> use <code class="docutils literal notranslate"><span class="pre">utils/updateCron.sh</span></code> or the cron job string in the manual installation instructions.  Instead follow the directions in the cron section below.</li>
+</ul>
+</div>
+<div class="section" id="modify-the-config-files">
+<h2>Modify the config files<a class="headerlink" href="#modify-the-config-files" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="edit-the-script-config-files">
+<h3>Edit the script config files<a class="headerlink" href="#edit-the-script-config-files" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">settings/config.cfg</span></code> needs to be created in each script instance to properly configure them.  Here are the config files I’m using.</p>
+<div class="section" id="home-brewpi-bottom-settings-config-cfg">
+<h4>/home/brewpi/bottom/settings/config.cfg<a class="headerlink" href="#home-brewpi-bottom-settings-config-cfg" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scriptPath</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">brewpi</span><span class="o">/</span><span class="n">bottom</span><span class="o">/</span>
+<span class="n">wwwPath</span> <span class="o">=</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">bottom</span><span class="o">/</span>
+<span class="n">port</span> <span class="o">=</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">arduino_bottom</span>
+<span class="n">altport</span> <span class="o">=</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+<span class="n">boardType</span> <span class="o">=</span> <span class="n">leonardo</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="home-brewpi-top-settings-config-cfg">
+<h4>/home/brewpi/top/settings/config.cfg<a class="headerlink" href="#home-brewpi-top-settings-config-cfg" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">scriptPath</span> <span class="o">=</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">brewpi</span><span class="o">/</span><span class="n">top</span><span class="o">/</span>
+<span class="n">wwwPath</span> <span class="o">=</span> <span class="o">/</span><span class="n">var</span><span class="o">/</span><span class="n">www</span><span class="o">/</span><span class="n">top</span><span class="o">/</span>
+<span class="n">port</span> <span class="o">=</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">arduino_top</span>
+<span class="n">altport</span> <span class="o">=</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">null</span>
+<span class="n">boardType</span> <span class="o">=</span> <span class="n">leonardo</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="variable-explanation">
+<h4>Variable explanation<a class="headerlink" href="#variable-explanation" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="93%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>scriptPath</td>
+<td><div class="first last line-block">
+<div class="line">Set to the full path of this script instance.  Include the trailing slash.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>wwwPath</td>
+<td><div class="first last line-block">
+<div class="line">Set to the full path of the web interface instance that corresponds to this script instance.  Include the trailing slash.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>port</td>
+<td><div class="first last line-block">
+<div class="line">Set to the device node symlink for the Arduino that corresponds to this script instance.  This symlink was set up in the udev rules section above.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>altport</td>
+<td><div class="first last line-block">
+<div class="line">Set to <code class="docutils literal notranslate"><span class="pre">/dev/null</span></code> so that the use of the default alternate port (/dev/ttyACM1) will not be attempted.</div>
+<div class="line">Because the device node symlink will always be correct, you don’t want an alternate port to be used.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td>boardType</td>
+<td><div class="first last line-block">
+<div class="line">Set to your Arduino board type.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="edit-the-web-interface-config-files">
+<h3>Edit the web interface config files<a class="headerlink" href="#edit-the-web-interface-config-files" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">config_user.php</span></code> needs to be created in each web interface instance to properly configure them.  Here are the config files I’m using.</p>
+<div class="section" id="var-www-bottom-config-user-php">
+<h4>/var/www/bottom/config_user.php<a class="headerlink" href="#var-www-bottom-config-user-php" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+        <span class="c1">// The default settings in config.php are overruled by the settings in config_user.php</span>
+        <span class="c1">// To use custom settings, copy this file to config_user.php and make your changes in config_user.php</span>
+        <span class="c1">// do not add a php closing tag, because newlines after closing tag might be included in the html</span>
+
+        <span class="c1">// Do not include a trailing slash on the path</span>
+        <span class="nv">$scriptPath</span> <span class="o">=</span> <span class="s1">&#39;/home/brewpi/bottom&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="var-www-top-config-user-php">
+<h4>/var/www/top/config_user.php<a class="headerlink" href="#var-www-top-config-user-php" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-php notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?php</span>
+        <span class="c1">// The default settings in config.php are overruled by the settings in config_user.php</span>
+        <span class="c1">// To use custom settings, copy this file to config_user.php and make your changes in config_user.php</span>
+        <span class="c1">// do not add a php closing tag, because newlines after closing tag might be included in the html</span>
+
+        <span class="c1">// Do not include a trailing slash on the path</span>
+        <span class="nv">$scriptPath</span> <span class="o">=</span> <span class="s1">&#39;/home/brewpi/top&#39;</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h4>Variable explanation<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>$scriptPath</td>
+<td><div class="first last line-block">
+<div class="line">Set to the full path of the script instance that corresponds to this web interface instance.  Do not include a trailing slash.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="section" id="set-up-cron-jobs-to-start-the-scripts">
+<h2>Set up cron jobs to start the scripts<a class="headerlink" href="#set-up-cron-jobs-to-start-the-scripts" title="Permalink to this headline">¶</a></h2>
+<p>Create cron job files for each script instance.  Here are the config files I’m using.</p>
+<div class="section" id="etc-cron-d-brewpi-bottom">
+<h3>/etc/cron.d/brewpi_bottom<a class="headerlink" href="#etc-cron-d-brewpi-bottom" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHON</span><span class="o">=</span>/usr/bin/python
+<span class="nv">SCRIPTPATH</span><span class="o">=</span>/home/brewpi/bottom
+
+* * * * * brewpi <span class="nv">$PYTHON</span> <span class="nv">$SCRIPTPATH</span>/brewpi.py --config <span class="nv">$SCRIPTPATH</span>/settings/config.cfg --checkstartuponly --dontrunfile<span class="p">;</span> <span class="o">[</span> <span class="nv">$?</span> !<span class="o">=</span> <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">$PYTHON</span> -u <span class="nv">$SCRIPTPATH</span>/brewpi.py --config <span class="nv">$SCRIPTPATH</span>/settings/config.cfg <span class="m">1</span>&gt;<span class="nv">$SCRIPTPATH</span>/logs/stdout.txt <span class="m">2</span>&gt;&gt;<span class="nv">$SCRIPTPATH</span>/logs/stderr.txt <span class="p">&amp;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="etc-cron-d-brewpi-top">
+<h3>/etc/cron.d/brewpi_top<a class="headerlink" href="#etc-cron-d-brewpi-top" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">PYTHON</span><span class="o">=</span>/usr/bin/python
+<span class="nv">SCRIPTPATH</span><span class="o">=</span>/home/brewpi/top
+
+* * * * * brewpi <span class="nv">$PYTHON</span> <span class="nv">$SCRIPTPATH</span>/brewpi.py --config <span class="nv">$SCRIPTPATH</span>/settings/config.cfg --checkstartuponly --dontrunfile<span class="p">;</span> <span class="o">[</span> <span class="nv">$?</span> !<span class="o">=</span> <span class="m">0</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="nv">$PYTHON</span> -u <span class="nv">$SCRIPTPATH</span>/brewpi.py --config <span class="nv">$SCRIPTPATH</span>/settings/config.cfg <span class="m">1</span>&gt;<span class="nv">$SCRIPTPATH</span>/logs/stdout.txt <span class="m">2</span>&gt;&gt;<span class="nv">$SCRIPTPATH</span>/logs/stderr.txt <span class="p">&amp;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="variable-and-command-explanation">
+<h3>Variable and command explanation<a class="headerlink" href="#variable-and-command-explanation" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Variable</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>PYTHON</td>
+<td><div class="first last line-block">
+<div class="line">Set to the full path of the Python binary.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td>SCRIPTPATH</td>
+<td><div class="first last line-block">
+<div class="line">Set to the full path of the script instance that corresponds to this cron job.  Do not include a trailing slash.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<p><code class="docutils literal notranslate"><span class="pre">--config</span> <span class="pre">$SCRIPTPATH/settings/config.cfg</span></code> is specified for both invocations of the script in the cron job so that BrewPi’s process monitoring can see that each script instance is unique.  For a description of the rest of the items in the cron job command, see the <a class="reference internal" href="../manual-brewpi-install/setting-up-cron.html"><span class="doc">manual installation process cron job page</span></a>.</p>
+</div>
+</div>
+<div class="section" id="updating">
+<h2>Updating<a class="headerlink" href="#updating" title="Permalink to this headline">¶</a></h2>
+<p>I have not investigated whether it is safe to use the updater script from <code class="docutils literal notranslate"><span class="pre">brewpi-tools</span></code>, so at this point I would recommend doing updates manually.</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://askubuntu.com/a/50412">How to distinguish between identical USB-to-serial adapters? - Ask Ubuntu</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../index.html">BrewPi Docs</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installing-your-pi/rpi-setup.html">1. Basic configuration of your Raspberry Pi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../automated-brewpi-install/automated-brewpi-install.html">2. Automated installation of BrewPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manual-brewpi-install/manual-brewpi-install.html">3. Manual installation of BrewPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../after-install/program-arduino.html">4. Programming your Arduino with BrewPi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../after-install/device-configuration.html">5. Configuring your devices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../updating-brewpi/update-script.html">6. Updating BrewPi with our upgrade script</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../faq/faq-index.html">7. Frequently Asked Questions (FAQ)</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">7.1. How do I run multiple Arduinos on the same RaspberryPi?</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog/changelog.html">8. Changelog</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="../faq/faq-index.html">7. Frequently Asked Questions (FAQ)</a><ul>
+      <li>Previous: <a href="../faq/faq-index.html" title="previous chapter">7. Frequently Asked Questions (FAQ)</a></li>
+      <li>Next: <a href="../changelog/changelog.html" title="next chapter">8. Changelog</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2013, Elco Jacobs.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="../_sources/advanced-setups/multiple-arduinos-single-rpi.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
