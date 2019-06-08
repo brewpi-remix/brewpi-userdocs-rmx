@@ -1,0 +1,134 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Automated Installation of BrewPi &#8212; BrewPi Remix 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuring your Devices" href="../devices/index.html" />
+    <link rel="prev" title="Basic Configuration of your Raspberry Pi" href="../rpi/index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../devices/index.html" title="Configuring your Devices"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../rpi/index.html" title="Basic Configuration of your Raspberry Pi"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Remix 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Automated Installation of BrewPi</a><ul>
+<li><a class="reference internal" href="#running-the-install-script">Running the Install Script</a></li>
+<li><a class="reference internal" href="#after-the-install">After the Install</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../rpi/index.html"
+                        title="previous chapter">Basic Configuration of your Raspberry Pi</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../devices/index.html"
+                        title="next chapter">Configuring your Devices</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/automated/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="automated-installation-of-brewpi">
+<h1>Automated Installation of BrewPi<a class="headerlink" href="#automated-installation-of-brewpi" title="Permalink to this headline">¶</a></h1>
+<p>Part of the “remix” in the BrewPi Remix project was to create all new scripts and methods to install and update BrewPi. These scripts are part of the <a class="reference external" href="https://github.com/lbussy/brewpi-tools-rmx">brewpi-tools-rmx repository on GitHub</a>.
+The install script will install all dependencies, set up users and permissions, download the latest code base and setup a few system daemons to keep things running well.</p>
+<p>Behind the scenes there are actually four GitHub repositories required to run BrewPi.  None of that will be visible to most users.  Most people will only need to follow the instructions they are presented to get a perfectly running system.</p>
+<div class="section" id="running-the-install-script">
+<h2>Running the Install Script<a class="headerlink" href="#running-the-install-script" title="Permalink to this headline">¶</a></h2>
+<p>The initial install is handled by a bootstrap script, which will execute, provide for dependencies, and call the rest of the scripts needed.  Behind the scenes; GitHub repositories will be cloned to your RPi, apt packages will be downloaded and installed, and configuration items created.</p>
+<p>If you are security conscious, naturally inquisitive, or would just like to know what’s going on, have a look at this <a class="reference internal" href="security.html"><span class="doc">note about security</span></a>.</p>
+<p>Use the following command to begin the installation, no other preparation or commands are necessary.  The script is automatically downloaded for you:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -L install.brewpiremix.com | sudo bash</span>
+</pre></div>
+</div>
+<p>Now just follow the instructions on the screen.</p>
+</div>
+<div class="section" id="after-the-install">
+<h2>After the Install<a class="headerlink" href="#after-the-install" title="Permalink to this headline">¶</a></h2>
+<p>If the installation was successful, your last step will be to <a class="reference internal" href="../devices/index.html"><span class="doc">to set up your devices in the device manager</span></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../devices/index.html" title="Configuring your Devices"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../rpi/index.html" title="Basic Configuration of your Raspberry Pi"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Remix 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Lee C. Bussy.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>
