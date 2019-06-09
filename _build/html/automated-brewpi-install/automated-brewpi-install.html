@@ -1,0 +1,139 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Automated installation of BrewPi &#8212; BrewPi Docs 0.3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Manual installation of BrewPi" href="../manual-brewpi-install/manual-brewpi-install.html" />
+    <link rel="prev" title="Basic configuration of your Raspberry Pi" href="../installing-your-pi/rpi-setup.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../manual-brewpi-install/manual-brewpi-install.html" title="Manual installation of BrewPi"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../installing-your-pi/rpi-setup.html" title="Basic configuration of your Raspberry Pi"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Docs 0.3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Automated installation of BrewPi</a><ul>
+<li><a class="reference internal" href="#getting-and-running-the-install-script">Getting and running the install script</a></li>
+<li><a class="reference internal" href="#after-the-install-has-finished">After the install has finished</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../installing-your-pi/rpi-setup.html"
+                        title="previous chapter">Basic configuration of your Raspberry Pi</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../manual-brewpi-install/manual-brewpi-install.html"
+                        title="next chapter">Manual installation of BrewPi</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/automated-brewpi-install/automated-brewpi-install.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="automated-installation-of-brewpi">
+<h1>Automated installation of BrewPi<a class="headerlink" href="#automated-installation-of-brewpi" title="Permalink to this headline">¶</a></h1>
+<p>We created scripts to install and update BrewPi, these scripts are part of the <a class="reference external" href="https://github.com/BrewPi/brewpi-tools">brewpi-tools repository on GitHub</a>.
+The install script will install all dependencies, set up users and permissions, download the latest code base and setup a CRON job.
+Just answer the questions on the screen.</p>
+<div class="section" id="getting-and-running-the-install-script">
+<h2>Getting and running the install script<a class="headerlink" href="#getting-and-running-the-install-script" title="Permalink to this headline">¶</a></h2>
+<p>You can get the install and update scripts by cloning the BrewPi tools repository from GitHub.
+The scripts use git to check for self-updates, so keep them inside the repository.
+You can put the brewpi-tools dir anywhere you like, the instructions here assume the pi user’s home directory.</p>
+<p>Use the following commands to clone the repository to the your current user’s home dir and to run the install script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/BrewPi/brewpi-tools.git ~/brewpi-tools
+sudo ~/brewpi-tools/install.sh
+</pre></div>
+</div>
+<p>Now just follow the instructions on the screen. The install script will remove everything in the install directories you pick (after making a backup).
+So if you want a fresh start, you can always rerun the installer.</p>
+</div>
+<div class="section" id="after-the-install-has-finished">
+<h2>After the install has finished<a class="headerlink" href="#after-the-install-has-finished" title="Permalink to this headline">¶</a></h2>
+<p>If the installation was successful, your next step is to program the Arduino via the web interface.
+You can find the instructions <a class="reference internal" href="../after-install/program-arduino.html"><span class="doc">here</span></a>.</p>
+<p>After that, your last step will be to <a class="reference internal" href="../after-install/device-configuration.html"><span class="doc">to set up your devices in the device manager</span></a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../manual-brewpi-install/manual-brewpi-install.html" title="Manual installation of BrewPi"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../installing-your-pi/rpi-setup.html" title="Basic configuration of your Raspberry Pi"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Docs 0.3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013, Elco Jacobs.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+.. image:: https://raw.githubusercontent.com/BrewPi/brewpi-www/legacy/brewpi_logo.png
+
+Welcome to the BrewPi Legacy Documentation!
+================================================
+.. note:: **From your host:**  This Legacy branch of documentation is being provided as a copy of the *original* BrewPi documentation, created when the Arduino (now referred to as "Legacy") was the only option.  It is being presented here for historical purposes only, and may not be correct.  What follows is that documentation and is not my work, nor is it intended for the remix project.
+
+This documentation is written in reStructured text format and part of the brewpi-www repository.  If you see something that could use some updating, please let me know! Even better: fix it yourself and send me a pull request on GitHub!
+
+The steps below will help you to go from a blank SD card and an unprogrammed Arduino to a working BrewPi setup.  Install and update scripts are available to do most of the work for you. After flashing Raspbian Wheezy onto your Pi, these scripts will automate 80% of the process.  If you really want to, you can still do your setup manually or just check the manual setup guide to see what the install script will do for you.
+
+.. toctree::
+    :maxdepth: 2
+
+    installing-your-pi/rpi-setup
+    automated-brewpi-install/automated-brewpi-install.rst
+    manual-brewpi-install/manual-brewpi-install.rst
+    after-install/program-arduino
+    after-install/device-configuration
+    updating-brewpi/update-script.rst
+    faq/faq-index.rst
+    changelog/changelog.rst

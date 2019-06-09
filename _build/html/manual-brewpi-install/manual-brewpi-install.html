@@ -1,0 +1,138 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Manual installation of BrewPi &#8212; BrewPi Docs 0.3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1. Setting up your LAMP web server for BrewPi" href="webserver-setup.html" />
+    <link rel="prev" title="Automated installation of BrewPi" href="../automated-brewpi-install/automated-brewpi-install.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="webserver-setup.html" title="1. Setting up your LAMP web server for BrewPi"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../automated-brewpi-install/automated-brewpi-install.html" title="Automated installation of BrewPi"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Docs 0.3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../automated-brewpi-install/automated-brewpi-install.html"
+                        title="previous chapter">Automated installation of BrewPi</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="webserver-setup.html"
+                        title="next chapter">1. Setting up your LAMP web server for BrewPi</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual-brewpi-install/manual-brewpi-install.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="manual-installation-of-brewpi">
+<h1>Manual installation of BrewPi<a class="headerlink" href="#manual-installation-of-brewpi" title="Permalink to this headline">¶</a></h1>
+<p>This section describes how to manually setup BrewPi on your Raspberry Pi: how to install dependencies, the web server,
+Python, users and permissions, cloning the files from GitHub, modifying the config files and setting up a CRON job.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="webserver-setup.html">1. Setting up your LAMP web server for BrewPi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="webserver-setup.html#install-apache2">1.1. Install Apache2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webserver-setup.html#install-php">1.2. Install PHP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="webserver-setup.html#install-mysql">1.3. Install MySQL</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python-setup.html">2. Installing python requirements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setup-users-permissions.html">3. Setting up users and permissions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup-users-permissions.html#fixing-permissions-issues">3.1. Fixing permissions issues</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup-users-permissions.html#starting-and-stopping-the-python-script">3.2. Starting and stopping the python script</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="using-git-for-brewpi.html">4. Using Git for BrewPi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="using-git-for-brewpi.html#the-arduino-code-brewpi-avr">4.1. The Arduino code: brewpi-avr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using-git-for-brewpi.html#the-python-script-brewpi-script">4.2. The python script: brewpi-script</a></li>
+<li class="toctree-l2"><a class="reference internal" href="using-git-for-brewpi.html#the-web-interface-brewpi-www">4.3. The web interface: brewpi-www</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="config-files.html">5. Modifying BrewPi config files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="config-files.html#editing-the-script-config-file">5.1. Editing the script config file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config-files.html#editing-the-web-interface-config-file">5.2. Editing the web interface config file</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setting-up-cron.html">6. Setting up a CRON job to start the script</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="webserver-setup.html" title="1. Setting up your LAMP web server for BrewPi"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../automated-brewpi-install/automated-brewpi-install.html" title="Automated installation of BrewPi"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Docs 0.3.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013, Elco Jacobs.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

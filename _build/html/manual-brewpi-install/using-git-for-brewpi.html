@@ -1,0 +1,235 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>4. Using Git for BrewPi &#8212; BrewPi Docs 0.3.0 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="5. Modifying BrewPi config files" href="config-files.html" />
+    <link rel="prev" title="3. Setting up users and permissions" href="setup-users-permissions.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="config-files.html" title="5. Modifying BrewPi config files"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="setup-users-permissions.html" title="3. Setting up users and permissions"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Docs 0.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="manual-brewpi-install.html" accesskey="U">Manual installation of BrewPi</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">4. Using Git for BrewPi</a><ul>
+<li><a class="reference internal" href="#the-arduino-code-brewpi-avr">4.1. The Arduino code: brewpi-avr</a></li>
+<li><a class="reference internal" href="#the-python-script-brewpi-script">4.2. The python script: brewpi-script</a><ul>
+<li><a class="reference internal" href="#cloning-the-remote-repository">4.2.1. Cloning the remote repository</a></li>
+<li><a class="reference internal" href="#switching-between-branches">4.2.2. Switching between branches</a></li>
+<li><a class="reference internal" href="#updating-to-the-latest-version">4.2.3. Updating to the latest version</a></li>
+<li><a class="reference internal" href="#dealing-with-local-changes">4.2.4. Dealing with local changes</a></li>
+<li><a class="reference internal" href="#resetting-to-the-latest-commit">4.2.5. Resetting to the latest commit</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-web-interface-brewpi-www">4.3. The web interface: brewpi-www</a><ul>
+<li><a class="reference internal" href="#id1">4.3.1. Cloning the remote repository</a></li>
+<li><a class="reference internal" href="#the-other-git-commands-for-easy-copy-pasting-in-var-www">4.3.2. The other git commands for easy copy pasting in /var/www</a></li>
+<li><a class="reference internal" href="#fixing-permissions-after-git-commands">4.3.3. Fixing permissions after git commands</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="setup-users-permissions.html"
+                        title="previous chapter">3. Setting up users and permissions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="config-files.html"
+                        title="next chapter">5. Modifying BrewPi config files</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual-brewpi-install/using-git-for-brewpi.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="using-git-for-brewpi">
+<h1>4. Using Git for BrewPi<a class="headerlink" href="#using-git-for-brewpi" title="Permalink to this headline">¶</a></h1>
+<p>BrewPi uses Git, a distributed version control system, and hosts its source code on GitHub. GitHub makes it easy to share code and to collaborate with other developers.
+To download BrewPi to your Raspberry Pi, we will clone the BrewPi repositories from the server to your device. A git clone copies the current version of all files, but also all other versions and the complete history in the .git directory.</p>
+<p>To use Git, you will first have to install it with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install git-core
+</pre></div>
+</div>
+<p>BrewPi is divided into 3 projects, which are all hosted on GitHub. To make you understand a bit better how BrewPi is build up, here is a short explanation of what each part does.</p>
+<div class="section" id="the-arduino-code-brewpi-avr">
+<h2>4.1. The Arduino code: brewpi-avr<a class="headerlink" href="#the-arduino-code-brewpi-avr" title="Permalink to this headline">¶</a></h2>
+<p>The Arduino runs all temperature control, reads sensors, switches actuators and drives the display. BrewPi can run standalone on the Arduino and maintain a constant beer temperature, so if your Raspberry Pi crashes, your beer is still safe.</p>
+<p>If you just use the standard BrewPi shields and do not want to mess with the code, you can just download the latest HEX file to upload to your Arduino from the BrewPi servers at <a class="reference external" href="http://dl.brewpi.com">http://dl.brewpi.com</a>.</p>
+<p>The brewpi-avr repository can be found at <a class="reference external" href="https://github.com/BrewPi/brewpi-avr">https://github.com/BrewPi/brewpi-avr</a>.
+This repository contains the code that runs on the Arduino. Because the Arduino IDE is basically just a crappy notepad with an upload button, we are using Atmel Studio to write our code. We just include the Arduino libraries in the project. Atmel Studio is built with the Visual Studio 2010 shell, which makes coding a lot faster and less frustrating.</p>
+</div>
+<div class="section" id="the-python-script-brewpi-script">
+<h2>4.2. The python script: brewpi-script<a class="headerlink" href="#the-python-script-brewpi-script" title="Permalink to this headline">¶</a></h2>
+<p>This repository contains the BrewPi Python script. This python script connects to the Arduino and listens to incoming connections from the web interface. These are the main functions the script provides:</p>
+<ul class="simple">
+<li>Periodically request data from the Arduino and write it to files for displaying it in graphs</li>
+<li>If BrewPi is running in profile mode, the python script reads a profile and continuously updates the beer temperature setting</li>
+<li>The python script can reprogram the Arduino</li>
+<li>The python script manages settings and forms an API layer between the Arduino and the web interface.</li>
+</ul>
+<p>The brewpi-script repository can be found at <a class="reference external" href="https://github.com/BrewPi/brewpi-script">https://github.com/BrewPi/brewpi-script</a>.</p>
+<div class="section" id="cloning-the-remote-repository">
+<h3>4.2.1. Cloning the remote repository<a class="headerlink" href="#cloning-the-remote-repository" title="Permalink to this headline">¶</a></h3>
+<p>The following command will clone the brewpi-script repository into <code class="docutils literal notranslate"><span class="pre">/home/brewpi</span></code>, an empty directory you should have created in the previous step. The python script will run as the brewpi user, so it is best if we run Git as the brewpi user too, so all new files are owned by the brewpi user. We do this by adding <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">-u</span> <span class="pre">brewpi</span></code> to the command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo -u brewpi git clone https://github.com/BrewPi/brewpi-script /home/brewpi
+</pre></div>
+</div>
+<p>After the git clone, Git will remember where you got the files from: the URL above is stored as the default remote, named <code class="docutils literal notranslate"><span class="pre">origin</span></code>.
+There are different branches within the repository, the most import ones being <code class="docutils literal notranslate"><span class="pre">master</span></code> and <code class="docutils literal notranslate"><span class="pre">develop</span></code>. <code class="docutils literal notranslate"><span class="pre">master</span></code> will contain the latest stable code and is checked out by default. <code class="docutils literal notranslate"><span class="pre">develop</span></code> will have the latest updates, but it is not guaranteed to be stable. So for normal uses, it is recommended to just stick to <code class="docutils literal notranslate"><span class="pre">master</span></code>.</p>
+</div>
+<div class="section" id="switching-between-branches">
+<h3>4.2.2. Switching between branches<a class="headerlink" href="#switching-between-branches" title="Permalink to this headline">¶</a></h3>
+<p>To switch to a different branch, you use <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">checkout</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /home/brewpi
+sudo -u brewpi git checkout develop
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-to-the-latest-version">
+<h3>4.2.3. Updating to the latest version<a class="headerlink" href="#updating-to-the-latest-version" title="Permalink to this headline">¶</a></h3>
+<p>With the files in version control, updating is easy too:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /home/brewpi
+sudo -u brewpi git pull
+</pre></div>
+</div>
+<p>Git pull is a combination of two commands: <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">fetch</span></code>, which will update your local copy of the remote, and <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">merge</span></code>, which merges the changes from the remote with your local files.</p>
+</div>
+<div class="section" id="dealing-with-local-changes">
+<h3>4.2.4. Dealing with local changes<a class="headerlink" href="#dealing-with-local-changes" title="Permalink to this headline">¶</a></h3>
+<p>If you have changed files locally, the commands above will likely fail because of a conflict. <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">stash</span></code> comes in handy in that case. <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">stash</span></code> stashes your local changes away, so you have an unmodified copy of the latest commit again.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo -u brewpi git stash
+</pre></div>
+</div>
+<p>After the stash you can do the pull or checkout you wanted to do. If you want your local changes back afterwards, you can get them back from the stash again with <code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">stash</span> <span class="pre">pop</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo -u brewpi git stash pop
+</pre></div>
+</div>
+</div>
+<div class="section" id="resetting-to-the-latest-commit">
+<h3>4.2.5. Resetting to the latest commit<a class="headerlink" href="#resetting-to-the-latest-commit" title="Permalink to this headline">¶</a></h3>
+<p>If you have messed up your local copy and want to reset everything to the latest commit:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo -u brewpi git reset
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-web-interface-brewpi-www">
+<h2>4.3. The web interface: brewpi-www<a class="headerlink" href="#the-web-interface-brewpi-www" title="Permalink to this headline">¶</a></h2>
+<p>This project is for the web interface of brewpi: PHP, JavaScript, CSS and all other files that make up the web interface. The web interface should be your primary way to interact with BrewPi: watch the graphs, change the settings and check the log files. Everything the brewpi-script does is executed from the web interface: the script has a listening socket which be web interface can send message to. The script will start actions or return data based on the message content.</p>
+<p>The brewpi-www repository can be found at <a class="reference external" href="https://github.com/BrewPi/brewpi-www">https://github.com/BrewPi/brewpi-www</a></p>
+<div class="section" id="id1">
+<h3>4.3.1. Cloning the remote repository<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>As before, we will clone the remote repository to a local directory. In this case this is the web server’s root directory: <code class="docutils literal notranslate"><span class="pre">/var/www</span></code>. The web server runs as the www-data user, so we will also run git as the www-data user this time.</p>
+<p>The directory should be empty, so check if you have left any files from previous steps and remove them.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls /var/www
+sudo rm /var/www/*
+sudo -u www-data git clone https://github.com/BrewPi/brewpi-www /var/www
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-other-git-commands-for-easy-copy-pasting-in-var-www">
+<h3>4.3.2. The other git commands for easy copy pasting in /var/www<a class="headerlink" href="#the-other-git-commands-for-easy-copy-pasting-in-var-www" title="Permalink to this headline">¶</a></h3>
+<p>Here are the other git commands again, but now ran as the www-data user, so you can easily copy/paste them.
+They should all be run from the /var/www directory.
+You don’t have to run these now.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo -u www-data git checkout develop
+sudo -u www-data git pull
+sudo -u www-data git stash
+sudo -u www-data git stash pop
+sudo -u www-data git reset
+</pre></div>
+</div>
+<p>Now that we have checked out all the BrewPi files, we just have to set a few settings.</p>
+</div>
+<div class="section" id="fixing-permissions-after-git-commands">
+<h3>4.3.3. Fixing permissions after git commands<a class="headerlink" href="#fixing-permissions-after-git-commands" title="Permalink to this headline">¶</a></h3>
+<p>Not all permissions can be stored in git, which is why the permissions are usually wrong after working with git.
+You can run the fixPermissions script in the brewpi-script/utils directory for fix all permissions at once.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="config-files.html" title="5. Modifying BrewPi config files"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="setup-users-permissions.html" title="3. Setting up users and permissions"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Docs 0.3.0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="manual-brewpi-install.html" >Manual installation of BrewPi</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2013, Elco Jacobs.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>
