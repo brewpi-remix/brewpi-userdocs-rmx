@@ -171,3 +171,7 @@ epub_title = project
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ['search.html']
+
+html_theme = 'theme' # use the theme in subdir 'theme'
+html_theme_path = ['.'] # make sphinx search for themes in current dir
+
