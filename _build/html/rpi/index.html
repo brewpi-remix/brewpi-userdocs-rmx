@@ -1,0 +1,201 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Basic Configuration of your Raspberry Pi &#8212; BrewPi Remix 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Automated Installation of BrewPi" href="../automated/index.html" />
+    <link rel="prev" title="BrewPi Remix Documentation" href="../index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../automated/index.html" title="Automated Installation of BrewPi"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="BrewPi Remix Documentation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Remix 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Basic Configuration of your Raspberry Pi</a><ul>
+<li><a class="reference internal" href="#installing-raspbian-on-your-raspberry-pi-easy-mode">Installing Raspbian on your Raspberry Pi - Easy Mode</a></li>
+<li><a class="reference internal" href="#going-headless-no-monitor-mouse-or-keyboard-needed">Going Headless - No Monitor, Mouse or Keyboard Needed</a></li>
+<li><a class="reference internal" href="#using-your-system">Using your System</a></li>
+<li><a class="reference internal" href="#your-rpi-s-name">Your RPi’s Name</a></li>
+<li><a class="reference internal" href="#updating-programs">Updating programs</a></li>
+<li><a class="reference internal" href="#cleaning-local-repositories">Cleaning Local Repositories</a></li>
+<li><a class="reference internal" href="#updating-firmware">Updating firmware</a></li>
+<li><a class="reference internal" href="#work-complete">Work Complete</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">BrewPi Remix Documentation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../automated/index.html"
+                        title="next chapter">Automated Installation of BrewPi</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/rpi/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="basic-configuration-of-your-raspberry-pi">
+<h1>Basic Configuration of your Raspberry Pi<a class="headerlink" href="#basic-configuration-of-your-raspberry-pi" title="Permalink to this headline">¶</a></h1>
+<p>This step by step guide will help you to set everything up on your Raspberry Pi and Arduino.  Current technology is assumed throughout.  At the time of writing, this is a Raspberry Pi 3B+ (although just about any should work) running Raspbian Stretch.  If you deviate from that, you should know enough to help translate these instructions on your own use.</p>
+<p>Please also note that while BrewPi Remix will probably work with other *nix flavors (almost assuredly Raspbian Desktop on a PC, likely Debian, and probably Ubuntu;) these are not tested.  You will undoubtedly have issues I’ve simply not tested for and am not sure I want to worry about.  Raspbian on the Raspberry Pi is the only officially supported OS.</p>
+<div class="section" id="installing-raspbian-on-your-raspberry-pi-easy-mode">
+<h2>Installing Raspbian on your Raspberry Pi - Easy Mode<a class="headerlink" href="#installing-raspbian-on-your-raspberry-pi-easy-mode" title="Permalink to this headline">¶</a></h2>
+<p>The easiest cross-platform way to install Linux on your Raspberry Pi is using the NOOBS installer.  There is no amount of documentation I could add here which would be better than that which already exists, so please visit the <a class="reference external" href="https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up">Setting up your Raspberry Pi</a> page at <a class="reference external" href="https://www.raspberrypi.org">RaspberryPi.org</a>.</p>
+</div>
+<div class="section" id="going-headless-no-monitor-mouse-or-keyboard-needed">
+<h2>Going Headless - No Monitor, Mouse or Keyboard Needed<a class="headerlink" href="#going-headless-no-monitor-mouse-or-keyboard-needed" title="Permalink to this headline">¶</a></h2>
+<p>Many folks running BrewPi Remix intend to embed the physical computer in their project and view the interface remotely on a web browser from another computer.  This is a great way to create a nice clean setup, and it’s pretty easy to do.</p>
+<p>Full instructions are included in the article <a class="reference external" href="https://www.brewpiremix.com/headless-raspberry-pi/">Headless Raspberry Pi</a> on the BrewPi Remix website.</p>
+</div>
+<div class="section" id="using-your-system">
+<h2>Using your System<a class="headerlink" href="#using-your-system" title="Permalink to this headline">¶</a></h2>
+<p>From this point you will either execute the BrewPi Remix installer via the Terminal window within the Raspbian Desktop (a black icon with a ‘<code class="docutils literal notranslate"><span class="pre">&gt;_</span></code>’ in it), or via SSH if you are headless.  Nearly all testing is done via SSH which should be the simplest of all scenarios.</p>
+<p>SSH is disabled by default on the contemporary Raspbian distros.  This is done because the Raspbian OS is shipped with a well-known password (‘raspberry’) and leaving it open via SSH is what we call A Bad Idea™.  You will be presented with an opportunity to change the default password if it is set during the BrewPi installation process.  SSH will be enabled if you follow the Headless article referenced above.  If not, you can enable it with two simple commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo systemctl enable ssh</span>
+<span class="go">sudo systemctl start ssh</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="your-rpi-s-name">
+<h2>Your RPi’s Name<a class="headerlink" href="#your-rpi-s-name" title="Permalink to this headline">¶</a></h2>
+<p>In the past, it was very common to instruct people to give their Pi a static IP address so they could access it via their local network.  This is still possible, but a rather dated way to approach it.  You can still do this by editing the Interfaces configuration, but a better way is to simply use the name.  There is a function called “mDNS” embedded in computer systems which allows this to happen.</p>
+<p>Note that Microsoft appears to be lagging a bit in their mDNS support.  There is a way to enable it for classic programs in Windows 10, but it’s not very straightforward.  By far the easiest way to do it is to install Bonjour from Apple.  Apple uses it to detect printers and such on the network so it’s proper name is “Bonjour Print Services for Windows.”  You can <a class="reference external" href="https://support.apple.com/kb/DL999?viewlocale=en_US&amp;locale=en_US">download it here</a>, it’s free, and a very lightweight install.</p>
+<p>The stock Raspberry Pi starts out life named ‘raspberrypi’.  You would access it over the network using the special domain suffix ‘.local’ so in your SSH software or your web browser you would the name ‘raspberrypi.local’.</p>
+<p>If you insist on having a static IP address, the configuration has moved to the file /etc/dhcpcd.conf.  To create the static configuration, run:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo nano /etc/dhcpcd.conf</span>
+</pre></div>
+</div>
+<p>In this file, look for a block that has something like this:</p>
+<div class="highlight-apacheconf notranslate"><div class="highlight"><pre><span></span><span class="c"># Example static IP configuration:</span>
+<span class="c">#interface eth0</span>
+<span class="c">#static ip_address=192.168.0.10/24</span>
+<span class="c">#static ip6_address=fd51:42f8:caae:d92e::ff/64</span>
+<span class="c">#static routers=192.168.0.1</span>
+<span class="c">#static domain_name_servers=192.168.0.1 8.8.8.8 fd51:42f8:caae:d92e::1</span>
+</pre></div>
+</div>
+<p>At the very least you will have to uncomment the <code class="docutils literal notranslate"><span class="pre">interface</span></code>, <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">ip_address</span></code> and <code class="docutils literal notranslate"><span class="pre">static</span> <span class="pre">routers</span></code> lines by removing the ‘#’ sign.  A minimal configuration may look like this:</p>
+<div class="highlight-apacheconf notranslate"><div class="highlight"><pre><span></span><span class="c"># Example static IP configuration:</span>
+<span class="nb">interface</span> eth0
+<span class="nb">static</span> ip_address=192.168.0.10/24
+<span class="c">#static ip6_address=fd51:42f8:caae:d92e::ff/64</span>
+<span class="nb">static</span> routers=192.168.0.1
+<span class="c">#static domain_name_servers=192.168.0.1 8.8.8.8 fd51:42f8:caae:d92e::1</span>
+</pre></div>
+</div>
+<p>Finally, you will need to restart your network interfaces for these changes to occur:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo service networking restart</span>
+</pre></div>
+</div>
+<p>Because this is much less straightforward than it used to be, and assumes knowledge of what’s called CIDR notation and other networking skills, I sincerely recommend NOT using a static address unless you really need it and/or know what you are doing.  I’ll answer questions as I can on the forum about this, but just keep in mind I’ve given you the very sincere recommendation NOT to do it.</p>
+</div>
+<div class="section" id="updating-programs">
+<h2>Updating programs<a class="headerlink" href="#updating-programs" title="Permalink to this headline">¶</a></h2>
+<p>Keep your Pi’s programs up to date with these commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt-get update &amp;&amp; sudo apt-get upgrade -y</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cleaning-local-repositories">
+<h2>Cleaning Local Repositories<a class="headerlink" href="#cleaning-local-repositories" title="Permalink to this headline">¶</a></h2>
+<p>Occasionally you may want to clean out old or unused repository files which take up space on your SD card.  To do so, use the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt-get clean &amp;&amp; sudo apt-get autoclean</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-firmware">
+<h2>Updating firmware<a class="headerlink" href="#updating-firmware" title="Permalink to this headline">¶</a></h2>
+<p>Make sure you also have the latest firmware version, and stay up to date using the rpi-update tool.  Firmware updates will often fix instability issues, so make sure you keep this up to date.  To run, execute the following command (it will reboot after completion):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo PRUNE_MODULES=1 RPI_REBOOT=1 rpi-update</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="work-complete">
+<h2>Work Complete<a class="headerlink" href="#work-complete" title="Permalink to this headline">¶</a></h2>
+<p>If you have followed along, you now have a perfectly functioning, up to date, Raspberry Pi on your network, capable of running BrewPi Remix.  Congratulations, this was probably the toughest part!</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../automated/index.html" title="Automated Installation of BrewPi"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="BrewPi Remix Documentation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Remix 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Lee C. Bussy.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

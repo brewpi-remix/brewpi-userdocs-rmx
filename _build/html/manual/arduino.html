@@ -1,0 +1,218 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Programming your Arduino &#8212; BrewPi Remix 0.0.1 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Running Multiple Arduinos on the Same RaspberryPi" href="../multi/index.html" />
+    <link rel="prev" title="BrewPi Remix Manual Installation" href="index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../multi/index.html" title="Running Multiple Arduinos on the Same RaspberryPi"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="BrewPi Remix Manual Installation"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Remix 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Programming your Arduino</a><ul>
+<li><a class="reference internal" href="#programming-via-command-line">Programming via Command Line</a><ul>
+<li><a class="reference internal" href="#selecting-a-shield">Selecting a Shield</a></li>
+<li><a class="reference internal" href="#beta-versions">Beta Versions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#programming-via-web-interface">Programming via Web Interface</a></li>
+<li><a class="reference internal" href="#uploading-a-new-hex-file-to-your-arduino">Uploading a new HEX file to your Arduino</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">BrewPi Remix Manual Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../multi/index.html"
+                        title="next chapter">Running Multiple Arduinos on the Same RaspberryPi</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/manual/arduino.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="programming-your-arduino">
+<h1>Programming your Arduino<a class="headerlink" href="#programming-your-arduino" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="programming-via-command-line">
+<h2>Programming via Command Line<a class="headerlink" href="#programming-via-command-line" title="Permalink to this headline">¶</a></h2>
+<p>Currently the web-based firmware update method is not very dependable.  I sincerely recommend using <code class="docutils literal notranslate"><span class="pre">updateFirmware.py</span></code>, which is located in your BrewPi Utility directory.  This method has the advantage of providing a menu to download the correct firmware package.  When you install BrewPi Remix you will be presented with the opportunity to flash your Arduino.  There are cases where you may want to re-flash, or change your currently connected Arduino.</p>
+<p>Run it with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo /home/brewpi/utils/updateFirmware.py</span>
+</pre></div>
+</div>
+<p>The script will pick the serial port currently configured for BrewPi.  With a single chamber install, this defaults to ‘auto’ and will choose the first Arduino it finds if there are multiple controllers plugged in.  In multi-chamber mode, the script will flash the Arduino corresponding to the local installation’s configuration file.</p>
+<p>The script will guide you through the process, presenting you with a choice of firmware versions which are available and appropriate for your shield type.  Generally you will want to choose the latest version.</p>
+<p>Finally, the script will offer to back up and restore your settings and configured devices if it was previously configured.  CHoose according to your preferences.</p>
+<p>When complete, the script will attempt to restore the state of your system; if it was running before you started it will attempt to restart BrewPi.</p>
+<div class="section" id="selecting-a-shield">
+<h3>Selecting a Shield<a class="headerlink" href="#selecting-a-shield" title="Permalink to this headline">¶</a></h3>
+<p>If your Arduino has never been flashed before, you will first be prompted with the opportunity to select a shield type. The available types are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>RevA</strong>: One of the original BrewPi Arduino shields. Very few of these are in the wild, and it is only supported through firmware version 0.2.10.</li>
+<li><strong>RevC</strong>: The successor to RevA (no idea what happened to RevB), this is the most common type. It includes support for a parallel LCD screen display and a rotary encoder which can be used to make manual adjustments.  Nearly all shields right now are RevC.  <em>Even if you do not use a shield</em> you should select the RevC for most purposes.</li>
+<li><strong>I2C</strong>: The newest shield variant which supports an I2C/TWI LCD display.  Technically speaking this firmware version does not need a shield in order to allow complete functionality, unlike the parallel LCD versions which require some additional circuitry.  If you are not going to use a shield at all however you want to use an I2C LCD you should choose this shield type.  Be aware that this firmware shield version moves the OneWire sensor to A0 from A4.</li>
+</ul>
+</div></blockquote>
+<p>For the most part, the shield type designation for the firmware is really about the capabilities of the firmware more than if you have a shield plugged in or not.  Nearly all guides will default to the RevC pinouts.</p>
+<p>If you have an Arduino that is currently flashed with one shield type and you wish to change, you can use the <cite>-h</cite> or <cite>–shield</cite> argument like so:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo /home/brewpi/utils/updateFirmware.py --shield</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="beta-versions">
+<h3>Beta Versions<a class="headerlink" href="#beta-versions" title="Permalink to this headline">¶</a></h3>
+<p>If you would like to be presented with possible beta versions of firmware as a choice, use the <cite>-b</cite> or <cite>–beta</cite> argument like so:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo /home/brewpi/utils/updateFirmware.py --beta</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="programming-via-web-interface">
+<h2>Programming via Web Interface<a class="headerlink" href="#programming-via-web-interface" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The web-based firmware flashing is not dependable in the current version and lacks some of the functionality of the command-line tool.  It is recommended to avoid the web-based interface for flashing right now.  For the most part the following documentation has not been updated from the original BrewPi Legacy branch and may no longer be correct.</p>
+</div>
+<p>Uploading a new hex file to your Arduino can be done straight from the BrewPi web interface.
+The serial port is read from the config file (<code class="docutils literal notranslate"><span class="pre">/home/brewpi/settings/config.cfg</span></code>), so make sure the settings are correct.
+If this file does not contain port settings, BrewPi uses the defaults from (<code class="docutils literal notranslate"><span class="pre">/home/brewpi/settings/defaults.cfg</span></code>)
+BrewPi defaults to ttyACM0 and when it cannot find it, it tries ttyACM1.
+If your serial port is one of these, you don’t have to do anything.</p>
+<p>The default should normally work (<code class="docutils literal notranslate"><span class="pre">/dev/ttyACM0</span></code>), but if your script fails to start because the serial port is not found, run this to see the candidates:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ls /dev/ttyA*</span>
+</pre></div>
+</div>
+<p>It is definitely not <code class="docutils literal notranslate"><span class="pre">ttyAMA0</span></code>, that is the internal serial port.
+Official Arduinos normally appear as ttyACM0 or if that is already taken, ttyACM1.
+Arduino clones sometimes appear as ttyUSB0 or similar. If that is the case, add these lines to  (<code class="docutils literal notranslate"><span class="pre">/home/brewpi/settings/config.cfg</span></code>):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">port = /dev/ttyUSB0</span>
+<span class="go">altport = /dev/ttyUSB1</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="uploading-a-new-hex-file-to-your-arduino">
+<h2>Uploading a new HEX file to your Arduino<a class="headerlink" href="#uploading-a-new-hex-file-to-your-arduino" title="Permalink to this headline">¶</a></h2>
+<p>To program your Arduino from the web interface, take the following steps:</p>
+<ol class="arabic">
+<li><p class="first">Log on to your BrewPi web interface by entering the Raspberry Pi’s IP address into a web browser.
+The IP is displayed when the installer finishes, or by typing <code class="docutils literal notranslate"><span class="pre">ifconfig</span></code> at the shell (look for inet addr).
+If the page says ‘script not running’ you should start the BrewPi script first.
+This is automatically done by the CRON job within one minute if you click the ‘start script’ button.
+If you have not set up CRON jet, you can manually start the script with:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo -u brewpi python /home/brewpi/brewpi.py</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Open the maintenance panel and go to the <cite>Reprogram Arduino</cite> tab.</p>
+</li>
+<li><p class="first">Download the HEX file appropriate for your setup from <a class="reference external" href="https://github.com/lbussy/brewpi-firmware-rmx/releases">https://github.com/lbussy/brewpi-firmware-rmx/releases</a>.
+You can also compile your own hex file with Atmel Studio.
+Make sure you have the right file for your Arduino type (UNO or Leonardo) and the right shield (Rev A or Rev C).
+Only the first 100 BrewPi shields were rev A. If you bought one recently, you have Rev C.</p>
+</li>
+<li><p class="first">The program script can automatically restore your settings and devices after upgrading.
+If you are uploading to a virgin Arduino, just answer NO to both.</p>
+</li>
+<li><p class="first">Next, just click the program button. If your script was started by CRON, the output will appear in the black box.</p>
+</li>
+<li><p class="first">The BrewPi script will automatically restart after programming and report which version of BrewPi it has found on the Arduino.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>If you’re prompted with an error: “cannot move uploaded file” rerun the fix permissions script in <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">/home/brewpi/doPerms.sh</span></code>.</li>
+<li>If saving devices in the device manager does not work, your EEPROM was probably not reset properly. Try reprogramming without settings and devices restore.</li>
+<li>Check whether it is not a hardware problem by programming your Arduino using the Arduino IDE. Just open the <cite>blink</cite> example and click <cite>upload</cite>.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../multi/index.html" title="Running Multiple Arduinos on the Same RaspberryPi"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="BrewPi Remix Manual Installation"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Remix 0.0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Lee C. Bussy.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>
