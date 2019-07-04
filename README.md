@@ -1,14 +1,13 @@
-# ![BrewPi Legacy Remix Logo](https://raw.githubusercontent.com/lbussy/brewpi-www-rmx/master/images/brewpi_logo.png)
-BrewPi Remix Documentation
-==========================
+# <a name="top"></a>![BrewPi Legacy Remix Logo](https://raw.githubusercontent.com/brewpi-remix/brewpi-www-rmx/master/images/brewpi_logo.png)
 
-This repository contains documentation created for users of [BrewPi Remix](https://www.brewpiremix.com).
+This is [@LBussy](https://github.com/lbussy)'s forks of the original [BrewPi Project](https://github.com/BrewPi).  This project has a new website, please also visit https://www.brewpiremix.com.
 
-License
--------
-BrewPi-UserDocs-RMX is licensed under the [GNU General Public License v3.0](https://github.com/lbussy/brewpi-userdocs-rmx/blob/master/LICENSE).
+This repository contains the documentation for [BrewPi Remix](https://www.brewpiremix.com) which runs on a [Raspberry Pi](https://www.raspberrypi.org/), communicating with an [Arduino](https://www.arduino.cc/en/guide/introduction).  
 
-Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.
+These [forks](https://en.wikipedia.org/wiki/Fork_(software_development)) are intended for the fans of the *original* BrewPi (called "Legacy" in BrewPi circles).  For current [BrewPi Spark 3](https://www.brewpi.com/) information and support, please continue to use and support [the original project](https://github.com/BrewPi).
 
-[![Documentation 
-Status](https://readthedocs.org/projects/brewpi-userdocs-rmx/badge/?version=legacy)](https://brewpi-userdocs-rmx.readthedocs.io/en/devel/?badge=devel)
+# Getting Started
+
+To get started, please head over to the [BrewPi Remix Tools](https://github.com/brewpi-remix/brewpi-tools-rmx/blob/master/README.md) README page, and follow along there.
+
+If you are looking only to view the documentation, it is available [at this link](https://docs.brewpiremix.com).
