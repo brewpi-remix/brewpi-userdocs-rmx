@@ -1,0 +1,217 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>BrewPi Remix API &#8212; BrewPi Remix 0.5.3 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Remix 0.5.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">BrewPi Remix API</a><ul>
+<li><a class="reference internal" href="#arduino-commands">Arduino Commands</a></li>
+<li><a class="reference internal" href="#arduino-message-types">Arduino Message Types</a></li>
+<li><a class="reference internal" href="#beersocket-commands">BEERSOCKET Commands</a></li>
+<li><a class="reference internal" href="#config-cfg-settings">Config.cfg Settings</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/api/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="brewpi-remix-api">
+<h1>BrewPi Remix API<a class="headerlink" href="#brewpi-remix-api" title="Permalink to this headline">¶</a></h1>
+<p>BrewPi Remix functions via interopeation of three different parts of the project:</p>
+<ul class="simple">
+<li>Firmware - This is the compiled application running on the controller</li>
+<li>Scrips - Python and shell scripts designed to receive and make available data from the controller, and send commands back to the controller</li>
+<li>Web Pages - A web application written in PHP and JavaScript</li>
+</ul>
+<img alt="../_images/api.png" src="../_images/api.png" />
+<p>Communication takes place in the following manner:</p>
+<ul class="simple">
+<li>Firmware &lt;-&gt; Script:  The Python Script on the Raspberry Pi opens serial communications over the USB cable with the Arduino Controller.  Two way communication is possible via specially formatted JSON messages.</li>
+<li>Web Server &lt;-&gt; Script:  A PHP socket called <cite>BEERSOCKET</cite> is created within the filesystem.  This socket allows two-way communications between the web server and the Script via specially formatted messages.</li>
+<li>End User &lt;-&gt; BrewPi Remix - The end user opens a web page served by Apache 2 running on the Raspberry Pi.  The web pages are written in PHP and JavaScript.  The web server allows commands to be sent to the Script via the <cite>BEERSOCKET</cite> and the Script in turn will communicate with the Controller as needed.  Data to display on the web page is sent to the web server throgh <cite>BEERSOCKET</cite> as well as filesystem information.</li>
+</ul>
+<div class="section" id="arduino-commands">
+<h2>Arduino Commands<a class="headerlink" href="#arduino-commands" title="Permalink to this headline">¶</a></h2>
+<p>The following commands are issued by the Script to the Arduino Controller.  If desired, these commands may be sent to the Controller through a terminal emulator.</p>
+<ul class="simple">
+<li>A - Alarm on</li>
+<li>a - Alarm off</li>
+<li>t - Request temperatures</li>
+<li>C - Set default constants</li>
+<li>S - Set default settings</li>
+<li>s - Request control settings</li>
+<li>c - Request control constants</li>
+<li>v - Request control variables</li>
+<li>n - Request firmware version information</li>
+<li>l - Request LCD contents</li>
+<li>j - Set settings as JSON</li>
+<li>e - Request contents of EEPROM</li>
+<li>E - Initialize EEPROM</li>
+<li>d - Request devices in EEPROM order</li>
+<li>U - Update device</li>
+<li>h - Request hardware</li>
+<li>Z - Zap EEPROM (in DEBUG mode only)</li>
+<li>R - Reset controller</li>
+</ul>
+</div>
+<div class="section" id="arduino-message-types">
+<h2>Arduino Message Types<a class="headerlink" href="#arduino-message-types" title="Permalink to this headline">¶</a></h2>
+<p>The following characters define the JSON message type sent to and returned by the Controller.  They are hte first character of the JSON message.</p>
+<ul class="simple">
+<li>T - Temperature info</li>
+<li>D - Debug message</li>
+<li>L - LCD content</li>
+<li>C - Control constants</li>
+<li>S - Control settings</li>
+<li>V - Control variables</li>
+<li>N - Version number</li>
+<li>h - Available devices</li>
+<li>d - Installed devices</li>
+<li>U - Device update confirmation</li>
+</ul>
+</div>
+<div class="section" id="beersocket-commands">
+<h2>BEERSOCKET Commands<a class="headerlink" href="#beersocket-commands" title="Permalink to this headline">¶</a></h2>
+<p>The following messages are sent through the <cite>BEERSOCKET</cite> from the web server to the Script.  These may also be send manually using the <cite>{web_root}sockettest.php</cite> page.</p>
+<ul class="simple">
+<li>ack - Acknowledge request (test message)</li>
+<li>lcd - Request LCD contents from script</li>
+<li>getMode - Request mode setting from script</li>
+<li>getFridge - Request fridge temperature setting from script</li>
+<li>getBeer - Request beer temperature setting from script</li>
+<li>getControlConstants - Request control constants from script</li>
+<li>getControlSettings - Request control settings from script</li>
+<li>getControlVariables - Request control variables from script</li>
+<li>refreshControlConstants - Request control constants from controller</li>
+<li>refreshControlSettings - Request control settings from controller</li>
+<li>refreshControlVariables - Request control variables from controller</li>
+<li>loadDefaultControlSettings - Reset control settings to default</li>
+<li>loadDefaultControlConstants - Reset control constants to default</li>
+<li>setBeer - Set new beer constant temperature</li>
+<li>setFridge - Set new fridge constant temperature</li>
+<li>setOff - Set mode to OFF</li>
+<li>setParameters -</li>
+<li>stopScript - Stop script, write semaphore</li>
+<li>quit - Quit but do not write semaphore</li>
+<li>eraseLogs - Erase stderr and stdout logs</li>
+<li>interval - Set new logging interval</li>
+<li>startNewBrew - Set new beer name</li>
+<li>pauseLogging - Pause logging, may be resumed</li>
+<li>stopLogging - Stop logging, may not resume</li>
+<li>resumeLogging - Resume logging</li>
+<li>dateTimeFormatDisplay - Change date time format</li>
+<li>setActiveProfile - Set a new beer profile</li>
+<li>programController or programArduino - Reprogram controller</li>
+<li>refreshDeviceList - Request devices from controller</li>
+<li>getDeviceList - Request device list from script</li>
+<li>applyDevice - Create device settings</li>
+<li>writeDevice - Configure a device</li>
+<li>getVersion - Get firmware version from controller</li>
+<li>resetController - Erase EEPROM</li>
+</ul>
+</div>
+<div class="section" id="config-cfg-settings">
+<h2>Config.cfg Settings<a class="headerlink" href="#config-cfg-settings" title="Permalink to this headline">¶</a></h2>
+<p>These settings control how the application behaves.  They are set in the <cite>{app_home}/settings/config.cfg</cite> file.  Not all are mandatory.</p>
+<ul class="simple">
+<li>altport - Checks this port definition if the controller is not found on “port”</li>
+<li>beerName - Name of the beer currently being logged</li>
+<li>dataLogging - Defined whether data loogging is active, paused, or stopped</li>
+<li>interval - Time period between data points</li>
+<li>iSpindel - Defines use of iSpindel (not currently in use)</li>
+<li>logJson - Log received line if True, False only logs ‘New JSON received.’, not defined mutes JSON messages</li>
+<li>port - Port at which the script will communicate with the controller.  If ‘auto’ it will connect to the first controller found on the USB bus.  May also be explicit such as /dev/ttyACM0 or /dev/chamber1</li>
+<li>scriptPath - Path where the brewpi.py script may be found</li>
+<li>tiltColor - Color of currently connected Tilt</li>
+<li>wwwPath - Path to current chamber’s website</li>
+<li>useInetSocket - Windows only, set to true to allow Inet socket use</li>
+<li>socketPort - Windows only, set to port for socket (default 6332)</li>
+<li>socketHost - Windows only, set to IP address for socket (default localhost)</li>
+<li>arduinoHome = Set to location of arduinoHome, defaults to /usr/share/arduino</li>
+<li>avrdudeHome = Set to location of avrdude, defaults to arduinoHome/hardware/tools/</li>
+<li>avrsizeHome = Set to location of avrsize, defaults to empty string because avrsize is in path on Linux</li>
+<li>avrConf = Set to location of avrdude.conf, defaults to avrdudeHome/avrdude.conf</li>
+<li>boardType = Defaults to ‘arduino’, no longer used</li>
+<li>outputJson - Whether to log every JSON we receive from controller; true = yes, false = short message only, no indication of JSON messages will be logged if not configured</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Remix 0.5.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Lee C. Bussy.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>

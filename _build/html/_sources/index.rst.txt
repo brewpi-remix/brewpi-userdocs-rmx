@@ -18,6 +18,7 @@ This documentation is intended for the beginner, who has to find a teenager just
     ./manual/arduino.rst
     ./multi/index.rst
     ./update/index.rst
+    ./api/index.rst
 
 .. Indices and tables
 .. ==================
