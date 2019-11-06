@@ -19,6 +19,7 @@ This documentation is intended for the beginner, who has to find a teenager just
     ./multi/index.rst
     ./update/index.rst
     ./api/index.rst
+    ./compile/index.rst
 
 .. Indices and tables
 .. ==================

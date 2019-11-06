@@ -1,0 +1,157 @@
+
+
+<!doctype html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>How to Compile the Code from Source &#8212; BrewPi Remix 0.5.3 documentation</title>
+    <link rel="stylesheet" href="../_static/bizstyle.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script type="text/javascript" src="../_static/bizstyle.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="BrewPi Remix API" href="../api/index.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="_static/css3-mediaqueries.js"></script>
+    <![endif]-->
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../api/index.html" title="BrewPi Remix API"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Remix 0.5.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to Compile the Code from Source</a><ul>
+<li><a class="reference internal" href="#disclaimer-and-limitation">Disclaimer and Limitation</a></li>
+<li><a class="reference internal" href="#setting-up-the-development-environment">Setting up the Development Environment</a></li>
+<li><a class="reference internal" href="#clone-the-repository">Clone the Repository</a></li>
+<li><a class="reference internal" href="#compile-the-source-code">Compile the Source Code</a><ul>
+<li><a class="reference internal" href="#project-configuration">Project Configuration</a></li>
+<li><a class="reference internal" href="#other-environments">Other Environments</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../api/index.html"
+                        title="previous chapter">BrewPi Remix API</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/compile/index.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="how-to-compile-the-code-from-source">
+<h1>How to Compile the Code from Source<a class="headerlink" href="#how-to-compile-the-code-from-source" title="Permalink to this headline">¶</a></h1>
+<p>These notes are just that; notes.  It will be enough for a reasonably technical person to create the environment in which they can fiddle to their heart’s content.  If however you are here as a complete neophyte and have dreams of conquering your Arduino; this is not the right project for you.</p>
+<p>Elco and others created this project many years back and by Elco’s admission he would (and has) do it differently if he had to do it again.  The project team also crammed about as much as possible into the relatively tiny Arduino Uno.  By way of providing scale:  When I added the I2C code, even though it was a compile-time choice (therefore not adding unnecessary code), I ended up searching through the code to find 26 letters in the text strings to remove to make room enough that it would not crash.  It is that tight.</p>
+<p>The original project was created in Atmel studio.  That sent more than a few otherwise sane people screaming and looking for the exits.  At the recommendation of another Brewing-related developer, I moved the project to PlatformIO and have not looked back.</p>
+<p>You are free to do you - but I can’t help you if you diverge from this path.  And that brings up another sensitive point:</p>
+<div class="section" id="disclaimer-and-limitation">
+<h2>Disclaimer and Limitation<a class="headerlink" href="#disclaimer-and-limitation" title="Permalink to this headline">¶</a></h2>
+<p>I will likely not provide support for anyone related to the source code.  It’s just too big a mess, too many choices to make, too many ways it can go wrong.  If there’s a one-liner question you want to ask in the forums I might be able to help (or someone else might) but there is no way I can retain my sanity if I try to support people going feral in the source code.</p>
+</div>
+<div class="section" id="setting-up-the-development-environment">
+<h2>Setting up the Development Environment<a class="headerlink" href="#setting-up-the-development-environment" title="Permalink to this headline">¶</a></h2>
+<p>I will make heavy use of existing documentation.  There’s no sense in me trying to re-write someone else’s work.  If you have an issue with a particular step, your best bet is usually seeking help with that tool’s vendor or support methods specifically.  If you need more help and see a link, click it and go get help there.</p>
+<ol class="arabic simple">
+<li>Install <a class="reference external" href="https://code.visualstudio.com/">Microsoft’s Visual Studio Code</a> (hereafter “VS Code”.)</li>
+<li>Install <a class="reference external" href="https://platformio.org/install/ide?install=vscode">PlatformIO as an extension within VS Code</a>.</li>
+</ol>
+<p>At this point, you have a very serviceable development environment.  I encourage you to view the various documentation.  A good place to start is PlatformIO’s tutorial on building a cross-platform “<a class="reference external" href="https://docs.platformio.org/en/latest/ide/vscode.html#quick-start">Blink</a>” application.</p>
+</div>
+<div class="section" id="clone-the-repository">
+<h2>Clone the Repository<a class="headerlink" href="#clone-the-repository" title="Permalink to this headline">¶</a></h2>
+<p>One need not use any Git functionality, however, I will use that functionality here as an example of how to obtain the source code.  You may use your method; of course, you are on your own down those other paths.</p>
+<p>Git is available and sometimes built into OS distributions.  For Windows, I recommend downloading the <a class="reference external" href="https://git-scm.com/">Git for Windows</a> available directly from the Git website.</p>
+<p>Once that is installed, open Git Bash and navigate to your intended source code destination.  i.e. If you want it in a subdirectory if C:\MyCode, open that folder in Windows Explorer, right-click on “MyCode” and select “Git Bash Here” from the context menu.</p>
+<p>At this point you can clone any software into its directory with the simple command:</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">{url</span> <span class="pre">to</span> <span class="pre">git</span> <span class="pre">repository}</span></code></p>
+<p>For BrewPi Remix, the full command is:</p>
+<p><code class="docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/brewpi-remix/brewpi-firmware-rmx.git</span></code></p>
+<p>The entire repository will be cloned to a directory named “brewpi-firmware-rmx.”</p>
+</div>
+<div class="section" id="compile-the-source-code">
+<h2>Compile the Source Code<a class="headerlink" href="#compile-the-source-code" title="Permalink to this headline">¶</a></h2>
+<p>Open VS Code and PlatformIO will load.  Use the File &gt; Open Folder workflow to open the root folder of the repository (i.e. C:\MyCode\brewpi-firmware-rmx).</p>
+<p>If you have followed along correctly and used the “Blink” example above, you now know how to compile the firmware and upload it to your controller.</p>
+<div class="section" id="project-configuration">
+<h3>Project Configuration<a class="headerlink" href="#project-configuration" title="Permalink to this headline">¶</a></h3>
+<p>The BrewPi firmware’s compile-time options are controlled by the <code class="docutils literal notranslate"><span class="pre">Config.h</span></code> file.  Most importantly, the choice of the shield is set with the <code class="docutils literal notranslate"><span class="pre">BREWPI_STATIC_CONFIG</span></code> item.</p>
+<p>I recommend you take some time reviewing this file and the code instances to understand the options available.</p>
+<p>Looking through that file you will also see <code class="docutils literal notranslate"><span class="pre">VERSION_STRING</span></code> and <code class="docutils literal notranslate"><span class="pre">BUILD_NAME</span></code>.  These macros, coupled with the shield type set with <code class="docutils literal notranslate"><span class="pre">BREWPI_STATIC_CONFIG</span></code> above, are responsible for some of the in-application information.</p>
+<p>There are also two Python scripts, <code class="docutils literal notranslate"><span class="pre">git_rev.py</span></code> and <code class="docutils literal notranslate"><span class="pre">name_firmware.py</span></code>.  These scripts set up the compilation environment variables which feed the above macros, as well as define the naming of the firmware file when created.</p>
+</div>
+<div class="section" id="other-environments">
+<h3>Other Environments<a class="headerlink" href="#other-environments" title="Permalink to this headline">¶</a></h3>
+<p>PlatformIO will also run within the Atom environment for its IDE, and it is capable of operating as a stand-alone CLI environment within Linux.  I will leave that as an adventure for the reader.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../api/index.html" title="BrewPi Remix API"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">BrewPi Remix 0.5.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, Lee C. Bussy.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.5.
+    </div>
+  </body>
+</html>
