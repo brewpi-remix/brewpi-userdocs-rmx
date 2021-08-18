@@ -1,4 +1,6 @@
-brewpi-userdocs-remix.code-workspace
-_build/*
-.vscode/*
-.idea/*
+*.code-workspace
+_build
+_static
+_templates
+.vscode
+.idea
