@@ -1,5 +1,2 @@
-*.code-workspace
-_build
-_templates
-.vscode
-.idea
+_build/
+.vscode/
