@@ -63,6 +63,7 @@ source_suffix = {
     '.rst': 'restructuredtext',
 }
 root_doc = 'index'
+master_doc = 'index'
 
 # -- Options for HTML output -------------------------------------------------
 
