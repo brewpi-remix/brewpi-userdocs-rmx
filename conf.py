@@ -59,6 +59,10 @@ exclude_patterns = [
     'README.*',
 ]
 
+source_suffix = {
+    '.rst': 'restructuredtext',
+}
+root_doc = 'index'
 
 # -- Options for HTML output -------------------------------------------------
 
