@@ -1,5 +1,7 @@
 # <a name="top"></a>![BrewPi Legacy Remix Logo](https://raw.githubusercontent.com/brewpi-remix/brewpi-www-rmx/master/images/brewpi_logo.png)
 
+[![Documentation Status](https://readthedocs.org/projects/brewpi-userdocs-rmx/badge/?version=latest)](https://docs.brewpiremix.com/en/latest/?badge=latest)
+
 This is [@LBussy](https://github.com/lbussy)'s forks of the original [BrewPi Project](https://github.com/BrewPi).  This project has a new website, please also visit https://www.brewpiremix.com.
 
 This repository contains the documentation for [BrewPi Remix](https://www.brewpiremix.com) which runs on a [Raspberry Pi](https://www.raspberrypi.org/), communicating with an [Arduino](https://www.arduino.cc/en/guide/introduction).  
