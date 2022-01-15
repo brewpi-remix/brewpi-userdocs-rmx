@@ -105,7 +105,7 @@ These settings control how the application behaves.  They are set in the `{app_h
 - dataLogging - Defined whether data loogging is active, paused, or stopped
 - interval - Time period between data points
 - iSpindel - Defines use of iSpindel (not currently in use)
-- logJson - Log received line if True, False only logs 'New JSON received.', not defined mutes JSON messages
+- logJson - Log every received line from the controller if True, False only logs 'New JSON received.', when not defined, JSON messages are muted
 - port - Port at which the script will communicate with the controller.  If 'auto' it will connect to the first controller found on the USB bus.  May also be explicit such as /dev/ttyACM0 or /dev/chamber1
 - scriptPath - Path where the brewpi.py script may be found
 - tiltColor - Color of currently connected Tilt
@@ -118,4 +118,3 @@ These settings control how the application behaves.  They are set in the `{app_h
 - avrsizeHome = Set to location of avrsize, defaults to empty string because avrsize is in path on Linux
 - avrConf = Set to location of avrdude.conf, defaults to avrdudeHome/avrdude.conf
 - boardType = Defaults to 'arduino', no longer used
-- outputJson - Whether to log every JSON we receive from controller; true = yes, false = short message only, no indication of JSON messages will be logged if not configured
