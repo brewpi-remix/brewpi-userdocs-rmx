@@ -1,6 +1,6 @@
 Basic Configuration of your Raspberry Pi
 ========================================
-This step by step guide will help you to set everything up on your Raspberry Pi and Arduino.  Current technology is assumed throughout.  Test is done using a Raspberry Pi 3B+ (although just about any should work) and the latest release of Raspbian avalible.  If you deviate from that, you should know enough to help translate these instructions on your own use.
+This step by step guide will help you to set everything up on your Raspberry Pi and Arduino.  Current technology is assumed throughout.  Test is done using a Raspberry Pi 3B+ (although just about any should work) and the latest release of Raspbian available.  If you deviate from that, you should know enough to help translate these instructions on your own use.
 
 Please also note that while BrewPi Remix will probably work with other \*nix flavors (almost assuredly Raspbian Desktop on a PC, likely Debian, and probably Ubuntu;) these are not tested.  You will undoubtedly have issues I've simply not tested for and am not sure I want to worry about.  Raspbian on the Raspberry Pi is the only officially supported OS.
 
