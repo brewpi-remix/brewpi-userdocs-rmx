@@ -56,7 +56,3 @@ Please refer to the screenshot below for a reference configuration with all devi
 Uninstalling a device
 ---------------------
 To uninstall a device, just set it's function to `None`, hit `Apply` and refresh your device list.
-
-Work Complete
-^^^^^^^^^^^^^
-That was the last step of 'Getting started with BrewPi Remix' Enjoy using your BrewPi and don't forget to come and say hi on the `Mega Thread <https://www.homebrewtalk.com/forum/threads/howto-make-a-brewpi-fermentation-controller-for-cheap.466106/>`_.

@@ -23,9 +23,9 @@ Selecting a Shield
 ^^^^^^^^^^^^^^^^^^
 If your Arduino has never been flashed before, you will first be prompted with the opportunity to select a shield type. The available types are:
 
- - **RevA**: One of the original BrewPi Arduino shields. Very few of these are in the wild, and it is only supported through firmware version 0.2.10.
- - **RevC**: The successor to RevA (no idea what happened to RevB), this is the most common type. It includes support for a parallel LCD screen display and a rotary encoder which can be used to make manual adjustments.  Nearly all shields right now are RevC.  *Even if you do not use a shield* you should select the RevC for most purposes.
- - **I2C**: The newest shield variant which supports an I2C/TWI LCD display.  Technically speaking this firmware version does not need a shield in order to allow complete functionality, unlike the parallel LCD versions which require some additional circuitry.  If you are not going to use a shield at all however you want to use an I2C LCD you should choose this shield type.  Be aware that this firmware shield version moves the OneWire sensor to A0 from A4.
+- **RevA**: One of the original BrewPi Arduino shields. Very few of these are in the wild, and it is only supported through firmware version 0.2.10.
+- **RevC**: The successor to RevA (no idea what happened to RevB), this is the most common type. It includes support for a parallel LCD screen display and a rotary encoder which can be used to make manual adjustments.  Nearly all shields right now are RevC.  *Even if you do not use a shield* you should select the RevC for most purposes.
+- **I2C**: The newest shield variant which supports an I2C/TWI LCD display.  Technically speaking this firmware version does not need a shield in order to allow complete functionality, unlike the parallel LCD versions which require some additional circuitry.  If you are not going to use a shield at all however you want to use an I2C LCD you should choose this shield type.  Be aware that this firmware shield version moves the OneWire sensor to A0 from A4.
 
 For the most part, the shield type designation for the firmware is really about the capabilities of the firmware more than if you have a shield plugged in or not.  Nearly all guides will default to the RevC pinouts.
 

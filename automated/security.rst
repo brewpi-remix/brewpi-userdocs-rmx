@@ -1,3 +1,5 @@
+:orphan:
+
 About Security
 ==============
 My instructions will tell you to copy and paste a command into your terminal window.  Despite me telling you to do that, I am now going to tell you how *unsafe* that is.  Many people browse the Internet, find the command they need, and blindly paste it into their terminal window.  This one is (potentially) **dangerous** from a non-trusted source:
