@@ -1,2 +1,56 @@
-_build/
+# PlatformIO
+.pio/
+.pioenvs/
+.piolibdeps/
 .vscode/
+*.code-workspace
+*.log
+
+# Documentation working files
+docs/_build/
+
+# Python Files
+__pycache__
+*.pyc
+
+# Image editing files
+.picasa*
+
+# PCB and Schematic File backups
+*.*\#[0-9]
+
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.out
+*.app
+*.exe
+
+# Mac Specific
+.DS_Store
